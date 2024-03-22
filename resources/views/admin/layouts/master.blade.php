@@ -38,6 +38,7 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
+@stack('css')
 <!-- /END GA --></head>
 
 <body>
