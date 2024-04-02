@@ -20,6 +20,25 @@ trait ImageUploadTrait{
     }
 
 
+    function uploadMultiImage(Request $request, $inputName, $path){
+        $imagePaths = [];
+        if ($request->hasFile($inputName)){
+
+            $images = $request->{$inputName};
+
+            foreach($images as $image){
+                $ext = $image->getClientOriginalExtension();
+                $imageName = 'media_'.uniqid().'.'.$ext;
+                $image->move(public_path($path), $imageName);
+
+                $imagePaths[] = $path.'/'.$imageName;
+            }
+            return $imagePaths;
+        }
+    }
+
+
+
     function updateImage(Request $request, $inputName, $path, $oldPath=null){
         if ($request->hasFile($inputName)){
             if (File::exists(public_path($oldPath))) {
